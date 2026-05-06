@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>South West Speakers – Find Your Role</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFF8F0;
+    --warm-white: #FFFDF9;
+    --ink: #1A1A1A;
+    --ink-light: #4A4A4A;
+    --ink-muted: #8A8A8A;
+    --coral: #E8634A;
+    --coral-soft: #FFF0EC;
+    --coral-hover: #D4533A;
+    --gold: #E8B44A;
+    --gold-soft: #FFF7E6;
+    --teal: #2A9D8F;
+    --teal-soft: #E8F6F4;
+    --sky: #4A90D9;
+    --sky-soft: #EBF3FC;
+    --plum: #7B5EA7;
+    --plum-soft: #F3EFF8;
+    --rose: #D4728C;
+    --rose-soft: #FCEEF3;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page-wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 32px 0 24px;
+  }
+  .club-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ink);
+    color: var(--cream);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .club-badge svg { flex-shrink: 0; }
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 7vw, 40px);
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .header h1 em {
+    font-style: normal;
+    color: var(--coral);
+  }
+  .header p {
+    font-size: 16px;
+    color: var(--ink-light);
+    line-height: 1.5;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* QUESTION SECTION */
+  .question-section {
+    margin-top: 32px;
+  }
+  .question-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .question-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+
+  /* SKILL CHIPS */
+  .chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 100px;
+    border: 2px solid #E0DCD6;
+    background: var(--warm-white);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .chip:hover {
+    border-color: var(--coral);
+    color: var(--ink);
+    background: var(--coral-soft);
+  }
+  .chip.selected {
+    border-color: var(--coral);
+    background: var(--coral);
+    color: white;
+    font-weight: 600;
+  }
+  .chip .chip-icon { font-size: 16px; }
+
+  /* CTA */
+  .cta-area {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .btn-find {
+    flex: 1;
+    padding: 16px 24px;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-find:hover { background: #333; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-find:disabled { opacity: 0.35; cursor: default; transform: none; box-shadow: none; }
+  .selected-count {
+    font-size: 13px;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  /* RESULTS */
+  .results-section {
+    margin-top: 40px;
+    animation: fadeUp 0.5s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .results-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+  .results-subtitle {
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+  }
+
+  /* ROLE CARD */
+  .role-card {
+    background: var(--warm-white);
+    border-radius: var(--radius);
+    border: 1px solid #E8E4DE;
+    padding: 24px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.4s ease backwards;
+  }
+  .role-card:nth-child(2) { animation-delay: 0.1s; }
+  .role-card:nth-child(3) { animation-delay: 0.2s; }
+  .role-card:nth-child(4) { animation-delay: 0.3s; }
+
+  .role-card-accent {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+
+  .role-card .match-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  .role-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .role-card .role-tagline {
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .matched-skills-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+  }
+  .matched-skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .matched-skill-tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .what-youll-do {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .what-youll-do summary {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-light);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .what-youll-do summary::-webkit-details-marker { display: none; }
+  .what-youll-do summary .arrow { transition: transform 0.2s; }
+  .what-youll-do[open] summary .arrow { transform: rotate(90deg); }
+  .what-youll-do ul {
+    margin-top: 10px;
+    padding-left: 18px;
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 1.7;
+  }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    margin-top: 40px;
+    text-align: center;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+  }
+  .footer-cta h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  .footer-cta p {
+    font-size: 14px;
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+  .btn-reset {
+    margin-top: 24px;
+    padding: 14px 28px;
+    background: var(--coral);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-reset:hover { background: var(--coral-hover); transform: translateY(-1px); }
+
+  /* COLOR VARIANTS FOR ROLE CARDS */
+  .role-coral .role-card-accent { background: var(--coral); }
+  .role-coral .match-badge { background: var(--coral-soft); color: var(--coral); }
+  .role-coral .matched-skill-tag { background: var(--coral-soft); color: var(--coral); }
+
+  .role-teal .role-card-accent { background: var(--teal); }
+  .role-teal .match-badge { background: var(--teal-soft); color: var(--teal); }
+  .role-teal .matched-skill-tag { background: var(--teal-soft); color: var(--teal); }
+
+  .role-sky .role-card-accent { background: var(--sky); }
+  .role-sky .match-badge { background: var(--sky-soft); color: var(--sky); }
+  .role-sky .matched-skill-tag { background: var(--sky-soft); color: var(--sky); }
+
+  .role-gold .role-card-accent { background: var(--gold); }
+  .role-gold .match-badge { background: var(--gold-soft); color: #9A7220; }
+  .role-gold .matched-skill-tag { background: var(--gold-soft); color: #9A7220; }
+
+  .role-plum .role-card-accent { background: var(--plum); }
+  .role-plum .match-badge { background: var(--plum-soft); color: var(--plum); }
+  .role-plum .matched-skill-tag { background: var(--plum-soft); color: var(--plum); }
+
+  .role-rose .role-card-accent { background: var(--rose); }
+  .role-rose .match-badge { background: var(--rose-soft); color: var(--rose); }
+  .role-rose .matched-skill-tag { background: var(--rose-soft); color: var(--rose); }
+
+  /* NO RESULTS */
+  .no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--ink-muted);
+  }
+  .no-results .emoji { font-size: 40px; margin-bottom: 12px; }
+
+  /* NEXT MEETING BANNER */
+  .next-meeting {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--teal-soft);
+    border: 1px solid #C2E6E1;
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 1.4;
+  }
+  .next-meeting .meeting-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .next-meeting strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .next-meeting .meeting-detail {
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  .meeting-today {
+    background: var(--coral-soft) !important;
+    border-color: #F0C4BA !important;
+  }
+
+  /* BOOK ROLE BUTTON */
+  .btn-book {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px 24px;
+    background: var(--coral);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    margin-bottom: 12px;
+  }
+  .btn-book:hover { background: var(--coral-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-book svg { flex-shrink: 0; }
+  .footer-sub {
+    font-size: 12px;
+    opacity: 0.5;
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper" id="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="club-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+      South West Speakers
+    </div>
+    <h1>What skill do you want to <em>practice?</em></h1>
+    <p>Pick the real-world skills you're working on. We'll match you with a meeting role that lets you practise them — for real.</p>
+    <div class="next-meeting" id="nextMeeting"></div>
+  </div>
+
+  <!-- SELECTION -->
+  <div class="question-section" id="selectionArea">
+    <div class="question-label">Choose 1–3 skills</div>
+    <div class="chips-container" id="chipsContainer"></div>
+    <div class="cta-area">
+      <button class="btn-find" id="btnFind" disabled>Show me my roles</button>
+      <span class="selected-count" id="selectedCount"></span>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsArea" style="display:none;"></div>
+
+</div>
+
+<script>
+const SKILLS = [
+  { id: "public-speaking",    label: "Public Speaking",         icon: "🎤" },
+  { id: "listening",          label: "Active Listening",        icon: "👂" },
+  { id: "feedback",           label: "Giving Feedback",         icon: "💬" },
+  { id: "leadership",         label: "Leading a Room",          icon: "🧭" },
+  { id: "time-management",    label: "Time Management",         icon: "⏱" },
+  { id: "thinking-on-feet",   label: "Thinking on Your Feet",   icon: "⚡" },
+  { id: "storytelling",       label: "Storytelling",            icon: "📖" },
+  { id: "confidence",         label: "Building Confidence",     icon: "💪" },
+  { id: "observation",        label: "Observation & Detail",    icon: "🔍" },
+  { id: "vocabulary",         label: "Vocabulary & Grammar",    icon: "✍️" },
+  { id: "critical-thinking",  label: "Critical Thinking",       icon: "🧠" },
+  { id: "facilitation",       label: "Facilitation",            icon: "🤝" },
+];
+
+const ROLES = [
+  {
+    name: "Toastmaster of the Day",
+    color: "coral",
+    tagline: "You're the showrunner — guiding the energy, pacing, and flow of the entire meeting.",
+    skills: ["leadership", "time-management", "public-speaking", "facilitation", "confidence"],
+    tasks: [
+      "Receive the agenda and coordinate to fill meeting roles",
+      "Introduce the theme and each functionary role",
+      "Guide smooth, engaging transitions throughout",
+      "Adapt to what's happening in the room — including missing roles",
+      "Close the meeting by thanking participants and guests"
+    ]
+  },
+  {
+    name: "Speaker",
+    color: "teal",
+    tagline: "Deliver a prepared speech, bringing stories and ideas to life while sharpening your delivery.",
+    skills: ["public-speaking", "storytelling", "confidence", "time-management", "feedback"],
+    tasks: [
+      "Deliver a prepared speech during the meeting",
+      "Rehearse and refine your message for impact",
+      "Coordinate with your evaluator on goals",
+      "Arrive early to check mic, lighting, and setup"
+    ]
+  },
+  {
+    name: "Speech Evaluator",
+    color: "sky",
+    tagline: "It's about evaluating, not judging. Help a speaker grow with honest, constructive feedback.",
+    skills: ["feedback", "listening", "critical-thinking", "observation", "public-speaking"],
+    tasks: [
+      "Connect with the speaker to understand their goals",
+      "Review the Pathways project criteria beforehand",
+      "Listen actively and take notes on strengths & areas to improve",
+      "Give a 2–3 minute evaluation: encouragement → suggestions → positive close"
+    ]
+  },
+  {
+    name: "General Evaluator",
+    color: "plum",
+    tagline: "Watch the whole meeting, then deliver helpful feedback on how everything ran.",
+    skills: ["critical-thinking", "listening", "observation", "leadership", "feedback"],
+    tasks: [
+      "Lead the evaluation portion of the meeting",
+      "Oversee and confirm roles with the evaluation team",
+      "Observe timeliness, preparation, organisation, enthusiasm",
+      "Deliver a verbal report evaluating the overall meeting"
+    ]
+  },
+  {
+    name: "Topicsmaster",
+    color: "gold",
+    tagline: "Lead the Table Topics® session — helping members practise impromptu speaking.",
+    skills: ["facilitation", "thinking-on-feet", "leadership", "listening", "confidence"],
+    tasks: [
+      "Choose creative topics ahead of the meeting",
+      "Explain that responses should be 1–2 minutes",
+      "Invite members and guests to volunteer",
+      "Read the room and select participants thoughtfully"
+    ]
+  },
+  {
+    name: "Timer",
+    color: "rose",
+    tagline: "Keep every speaker and segment on track — your signals keep the meeting flowing.",
+    skills: ["time-management", "observation", "confidence", "listening"],
+    tasks: [
+      "Know the time limits for each speaker type",
+      "Explain timing rules and demonstrate signals",
+      "Listen closely and signal each speaker on time",
+      "Report each speaker's name and time when asked"
+    ]
+  },
+  {
+    name: "Ah-Counter",
+    color: "teal",
+    tagline: "Track the filler words — 'um', 'ah', 'you know' — that sneak into speeches.",
+    skills: ["observation", "listening", "feedback", "confidence"],
+    tasks: [
+      "Get the Ah-Counter log or prepare your own notes",
+      "Briefly explain your role when introduced",
+      "Track filler words, overused phrases, and long pauses",
+      "Share observations during the evaluation section"
+    ]
+  },
+  {
+    name: "Grammarian",
+    color: "sky",
+    tagline: "Encourage members to expand their vocabulary and speak more thoughtfully.",
+    skills: ["vocabulary", "observation", "critical-thinking", "feedback"],
+    tasks: [
+      "Introduce the Word of the Day",
+      "Listen for grammar errors, incomplete sentences, and word mix-ups",
+      "Take notes on each speaker's language use",
+      "Present your full report at the end of the meeting"
+    ]
+  }
+];
+
+let selected = new Set();
+
+function render() {
+  const container = document.getElementById("chipsContainer");
+  container.innerHTML = SKILLS.map(s => `
+    <button class="chip ${selected.has(s.id) ? 'selected' : ''}" data-id="${s.id}" onclick="toggle('${s.id}')">
+      <span class="chip-icon">${s.icon}</span> ${s.label}
+    </button>
+  `).join("");
+
+  const btn = document.getElementById("btnFind");
+  const count = document.getElementById("selectedCount");
+  btn.disabled = selected.size === 0;
+  count.textContent = selected.size > 0 ? `${selected.size} of 3` : "";
+}
+
+function toggle(id) {
+  if (selected.has(id)) {
+    selected.delete(id);
+  } else if (selected.size < 3) {
+    selected.add(id);
+  }
+  render();
+}
+
+function showResults() {
+  const scored = ROLES.map(role => {
+    const matched = role.skills.filter(s => selected.has(s));
+    return { ...role, matched, score: matched.length };
+  })
+  .filter(r => r.score > 0)
+  .sort((a, b) => b.score - a.score);
+
+  const area = document.getElementById("resultsArea");
+
+  if (scored.length === 0) {
+    area.innerHTML = `<div class="no-results"><div class="emoji">🤔</div><p>No roles matched. Try different skills!</p></div>`;
+    area.style.display = "block";
+    return;
+  }
+
+  const topScore = scored[0].score;
+
+  area.innerHTML = `
+    <div class="results-section">
+      <div class="results-title">Your matches</div>
+      <div class="results-subtitle">Ranked by how many of your chosen skills each role covers</div>
+      ${scored.map((r, i) => {
+        const isTop = r.score === topScore;
+        const pct = Math.round((r.score / selected.size) * 100);
+        const matchLabel = isTop ? "Best match" : `${r.score} skill${r.score > 1 ? "s" : ""} matched`;
+        return `
+        <div class="role-card role-${r.color}">
+          <div class="role-card-accent"></div>
+          <div class="match-badge">${isTop ? "⭐ " : ""}${matchLabel}</div>
+          <h3>${r.name}</h3>
+          <p class="role-tagline">${r.tagline}</p>
+          <div class="matched-skills-label">Skills you'll practise</div>
+          <div class="matched-skills-list">
+            ${r.matched.map(sid => {
+              const sk = SKILLS.find(s => s.id === sid);
+              return `<span class="matched-skill-tag">${sk.icon} ${sk.label}</span>`;
+            }).join("")}
+          </div>
+          <details class="what-youll-do">
+            <summary><span class="arrow">▸</span> What you'll do in this role</summary>
+            <ul>${r.tasks.map(t => `<li>${t}</li>`).join("")}</ul>
+          </details>
+        </div>`;
+      }).join("")}
+      <div class="footer-cta">
+        <h3>Ready to volunteer?</h3>
+        <p id="footerMeetingText"></p>
+        <a class="btn-book" href="https://toastmasterclub.org" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          Book your role on EasySpeak
+        </a>
+        <div class="footer-sub">Log in at toastmasterclub.org to claim a role</div>
+        <button class="btn-reset" onclick="resetAll()">Start over</button>
+      </div>
+    </div>
+  `;
+  area.style.display = "block";
+  area.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function resetAll() {
+  selected.clear();
+  render();
+  document.getElementById("resultsArea").style.display = "none";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("btnFind").addEventListener("click", showResults);
+
+// --- Next meeting date calculator ---
+// Meetings: 2nd and 4th Wednesday of each month, 19:15–21:00, City Gate Hotel, Exeter
+function getNextMeetings() {
+  const now = new Date();
+  const results = [];
+  // Check this month and next 2 months to find upcoming dates
+  for (let m = 0; m < 3; m++) {
+    const year = now.getFullYear();
+    const month = now.getMonth() + m;
+    const d = new Date(year, month, 1);
+    let wednesdays = [];
+    while (d.getMonth() === (month % 12)) {
+      if (d.getDay() === 3) wednesdays.push(new Date(d));
+      d.setDate(d.getDate() + 1);
+    }
+    // 2nd and 4th Wednesday (index 1 and 3)
+    if (wednesdays[1]) results.push(wednesdays[1]);
+    if (wednesdays[3]) results.push(wednesdays[3]);
+  }
+  // Filter to future dates (or today if meeting hasn't ended: before 21:00)
+  const cutoff = new Date(now);
+  cutoff.setHours(21, 0, 0, 0);
+  return results.filter(d => d > now || (d.toDateString() === now.toDateString() && now < cutoff));
+}
+
+function formatMeetingDate(d) {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const daysDiff = Math.round((d - new Date(today.getFullYear(), today.getMonth(), today.getDate())) / 86400000);
+
+  const dayName = d.toLocaleDateString('en-GB', { weekday: 'long' });
+  const dateStr = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
+
+  if (d.toDateString() === today.toDateString()) return { label: "Tonight!", detail: `${dateStr} · 7:15 – 9:00 PM`, isToday: true };
+  if (d.toDateString() === tomorrow.toDateString()) return { label: "Tomorrow", detail: `${dateStr} · 7:15 – 9:00 PM`, isToday: false };
+  if (daysDiff <= 6) return { label: `This ${dayName}`, detail: `${dateStr} · 7:15 – 9:00 PM`, isToday: false };
+  if (daysDiff <= 13) return { label: `Next ${dayName}`, detail: `${dateStr} · 7:15 – 9:00 PM`, isToday: false };
+  return { label: dayName + ' ' + dateStr, detail: "7:15 – 9:00 PM", isToday: false };
+}
+
+function renderNextMeeting() {
+  const meetings = getNextMeetings();
+  const el = document.getElementById("nextMeeting");
+  const footerEl = document.getElementById("footerMeetingText");
+
+  if (meetings.length === 0) {
+    el.style.display = "none";
+    if (footerEl) footerEl.textContent = "Book your role for the next South West Speakers meeting at the City Gate Hotel, Exeter.";
+    return;
+  }
+
+  const next = meetings[0];
+  const fmt = formatMeetingDate(next);
+
+  el.className = "next-meeting" + (fmt.isToday ? " meeting-today" : "");
+  el.innerHTML = `
+    <span class="meeting-icon">${fmt.isToday ? "🔴" : "📅"}</span>
+    <span>
+      <strong>Next meeting: ${fmt.label}</strong><br>
+      <span class="meeting-detail">${fmt.detail} · City Gate Hotel, Exeter</span>
+    </span>
+  `;
+
+  if (footerEl) {
+    footerEl.textContent = fmt.isToday
+      ? "Tonight at the City Gate Hotel! Log in to EasySpeak and grab a role before it's too late."
+      : `${fmt.label} (${fmt.detail}) at the City Gate Hotel, Exeter. Grab your role now.`;
+  }
+}
+
+renderNextMeeting();
+render();
+</script>
+
+</body>
+</html>
