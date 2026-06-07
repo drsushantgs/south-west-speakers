@@ -579,7 +579,7 @@
 
     <div class="privacy-notice">
       <span class="icon">🔒</span>
-      <p>Everything you type stays on your device. Nothing is sent to any server. Your answers are saved in your browser so you can come back to them — and you can download your speech when you're done.</p>
+      <p>Everything you type stays on your device.<br></br>Your answers are saved in your browser.<br></br>You can download your speech when you're done.</p>
     </div>
 
     <div id="welcomeMeeting"></div>
@@ -587,7 +587,7 @@
     <div class="card">
       <h2>What you'll walk away with</h2>
       <p style="color:var(--ink-light);font-size:15px;line-height:1.6;margin-top:8px;">
-        A 4–6 minute speech about you, ready to deliver at your next meeting. We'll build it together one easy question at a time — no staring at a blank page.
+        A 4-6 minute speech about you, ready to deliver at your next meeting. We'll build it together one easy question at a time. Bye bye, dull PDFs!
       </p>
     </div>
 
@@ -1153,8 +1153,10 @@ function populatePrompt(screen) {
 // ============ ANGLE SELECTION ============
 function pickAngle(angle) {
   state.angle = angle;
-  document.querySelectorAll('#angleGrid .option-card').forEach(c => c.classList.remove('selected'));
-  event.currentTarget.classList.add('selected');
+  const angles = ['joining','turning','career','passion','surprise'];
+  document.querySelectorAll('#angleGrid .option-card').forEach((c, i) => {
+    c.classList.toggle('selected', angles[i] === angle);
+  });
   save();
   validateScreen(2);
 }
@@ -1162,8 +1164,10 @@ function pickAngle(angle) {
 // ============ HOOK SELECTION ============
 function pickHook(type) {
   state.hookType = type;
-  document.querySelectorAll('#hookGrid .option-card').forEach(c => c.classList.remove('selected'));
-  event.currentTarget.classList.add('selected');
+  const hooks = ['question','fact','scene','simple'];
+  document.querySelectorAll('#hookGrid .option-card').forEach((c, i) => {
+    c.classList.toggle('selected', hooks[i] === type);
+  });
 
   const hookInput = document.getElementById('hookInput');
   const label = document.getElementById('hookLabel');
@@ -1267,28 +1271,6 @@ function saveSpeech() {
 }
 
 // ============ WORD COUNT ============
-function updateWordCount() {
-  const text = getSpeechText().trim();
-  const words = text ? text.split(/\s+/).length : 0;
-  const mins = (words / 130).toFixed(1); // avg speaking pace
-
-  document.getElementById('wordCountText').textContent = words + ' words';
-  document.getElementById('wordCountTime').textContent = '~' + mins + ' min';
-
-  const fill = document.getElementById('wordCountFill');
-  const pct = Math.min((words / 780) * 100, 100); // 780 = ~6min
-  fill.style.width = pct + '%';
-
-  if (words < 450) {
-    fill.style.background = var('--amber', '#FFC107');
-  } else if (words > 850) {
-    fill.style.background = '#F44336';
-  } else {
-    fill.style.background = '#4CAF50';
-  }
-}
-
-// Fix the var() in JS
 function updateWordCount() {
   const text = getSpeechText().trim();
   const words = text ? text.split(/\s+/).length : 0;
@@ -1421,22 +1403,14 @@ function load() {
 
       // Restore angle selection
       if (state.angle) {
-        const cards = document.querySelectorAll('#angleGrid .option-card');
-        const angles = ['joining','turning','career','passion','surprise'];
-        angles.forEach((a, i) => { if (a === state.angle) cards[i].classList.add('selected'); });
+        pickAngle(state.angle);
       }
 
       // Restore hook selection
       if (state.hookType) {
-        const cards = document.querySelectorAll('#hookGrid .option-card');
-        const hooks = ['question','fact','scene','simple'];
-        hooks.forEach((h, i) => { if (h === state.hookType) cards[i].classList.add('selected'); });
-        // Re-trigger the hook UI
-        if (state.hookType) {
-          document.getElementById('hookInput').style.display = 'block';
-          pickHook(state.hookType);
-          document.getElementById('inp-hook').value = state.hook || '';
-        }
+        document.getElementById('inp-hook').value = state.hook || '';
+        document.getElementById('hookInput').style.display = 'block';
+        pickHook(state.hookType);
       }
 
       // Restore speech
