@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>South West Speakers – Meeting Agenda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #FAF7F2;
+  --coral: #D85A30;
+  --coral-light: #FAECE7;
+  --coral-text: #712B13;
+  --teal: #1D9E75;
+  --teal-light: #E1F5EE;
+  --teal-text: #085041;
+  --purple: #7F77DD;
+  --purple-light: #EEEDFE;
+  --purple-text: #3C3489;
+  --amber: #BA7517;
+  --amber-light: #FAEEDA;
+  --amber-text: #633806;
+  --green-light: #EAF3DE;
+  --green-text: #3B6D11;
+  --red-light: #FCEBEB;
+  --red-text: #A32D2D;
+  --gray-50: #F1EFE8;
+  --gray-400: #888780;
+  --gray-600: #5F5E5A;
+  --gray-800: #444441;
+  --gray-900: #2C2C2A;
+  --text: #2C2C2A;
+  --text-secondary: #5F5E5A;
+  --text-hint: #888780;
+  --border: rgba(0,0,0,0.1);
+  --card-bg: #FFFFFF;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cream: #1a1a18;
+    --coral-light: #4A1B0C;
+    --coral-text: #F0997B;
+    --teal-light: #04342C;
+    --teal-text: #9FE1CB;
+    --purple-light: #26215C;
+    --purple-text: #CECBF6;
+    --amber-light: #412402;
+    --amber-text: #FAC775;
+    --green-light: #173404;
+    --green-text: #C0DD97;
+    --red-light: #501313;
+    --red-text: #F7C1C1;
+    --gray-50: #2C2C2A;
+    --gray-400: #888780;
+    --gray-600: #B4B2A9;
+    --gray-800: #D3D1C7;
+    --gray-900: #F1EFE8;
+    --text: #F1EFE8;
+    --text-secondary: #B4B2A9;
+    --text-hint: #888780;
+    --border: rgba(255,255,255,0.12);
+    --card-bg: #222220;
+  }
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 16px 3rem;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  padding: 2rem 0 1.25rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.25rem;
+}
+
+.club-name {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.meeting-date {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.theme-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--amber-light);
+  color: var(--amber-text);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-top: 12px;
+}
+
+.venue {
+  font-size: 13px;
+  color: var(--text-hint);
+  margin-top: 8px;
+}
+
+/* ── Legend ── */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-hint);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Timeline ── */
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-hint);
+  padding: 14px 0 4px 44px;
+}
+
+.item {
+  display: flex;
+  gap: 10px;
+  padding: 6px 0;
+  align-items: flex-start;
+}
+
+.item-time {
+  min-width: 36px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-hint);
+  padding-top: 8px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.item-dot-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  position: relative;
+}
+
+.item-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.dot-speech { background: var(--coral); }
+.dot-eval { background: var(--teal); }
+.dot-topics { background: var(--purple); }
+.dot-admin { background: var(--gray-400); }
+.dot-break { background: transparent; border: 2px solid var(--gray-400); }
+
+.item-card {
+  flex: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  min-width: 0;
+}
+
+.item-card.break-card {
+  background: var(--gray-50);
+  border: none;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 10px 12px;
+}
+
+.item-role {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-hint);
+}
+
+.item-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  margin-top: 1px;
+}
+
+.item-event {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.item-timing {
+  display: inline-flex;
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.b-green { background: var(--green-light); color: var(--green-text); }
+.b-amber { background: var(--amber-light); color: var(--amber-text); }
+.b-red   { background: var(--red-light);   color: var(--red-text); }
+
+.speech-detail {
+  font-size: 12px;
+  color: var(--text-hint);
+  margin-top: 4px;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* ── Now indicator ── */
+.item.is-now .item-card {
+  border-color: var(--coral);
+  border-width: 2px;
+}
+.item.is-now .item-card::before {
+  content: "NOW";
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--coral);
+  letter-spacing: 0.05em;
+  float: right;
+  margin: 2px 0 0 8px;
+}
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid var(--border);
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+}
+
+.next-meeting {
+  background: var(--gray-50);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.6;
+}
+.next-meeting strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.qr-section {
+  margin-top: 16px;
+  text-align: center;
+}
+.qr-section canvas {
+  margin: 0 auto 6px;
+  display: block;
+  border-radius: 8px;
+}
+.qr-label {
+  font-size: 11px;
+  color: var(--text-hint);
+}
+
+/* ── Privacy ── */
+.privacy {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-hint);
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="club-name">South West Speakers</div>
+    <div class="meeting-date" id="meetingDate"></div>
+    <div class="theme-pill" id="themePill"></div>
+    <div class="venue" id="venue"></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--coral)"></div>Speech</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>Evaluation</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>Table topics</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--gray-400)"></div>Admin</div>
+  </div>
+
+  <div id="timeline"></div>
+
+  <div class="footer">
+    <div class="next-meeting" id="nextMeeting"></div>
+    <div class="qr-section">
+      <canvas id="qr"></canvas>
+      <div class="qr-label">Scan to open this agenda on your phone</div>
+    </div>
+  </div>
+
+  <div class="privacy">No data is collected. This page is entirely static.</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script>
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║  MEETING DATA — UPDATE THIS SECTION FOR EACH MEETING           ║
+// ║  Paste the new JSON from Claude here before each meeting.      ║
+// ╚══════════════════════════════════════════════════════════════════╝
+
+const MEETING = {
+  date: "Wednesday 24 June 2026",
+  time: "19:15",
+  theme: "Pets",
+  themeEmoji: "🐾",
+  venue: "City Gate Hotel, Exeter",
+  nextMeeting: {
+    date: "Wednesday 8 July 2026",
+    time: "19:15",
+    manager: "Nathan Holmes"
+  },
+  // URL for the QR code — update to your GitHub Pages URL
+  qrUrl: "https://yourusername.github.io/sws-tools/agenda.html",
+
+  agenda: [
+    // OPENING
+    { section: "Opening" },
+    { time: "19:15", role: "Meet & greet", name: "", event: "Welcome guests", type: "admin" },
+    { time: "19:30", role: "Sergeant at arms", name: "", event: "Open meeting", type: "admin", timing: [2] },
+    { time: "", role: "Toastmaster", name: "Sushant Sharma", event: "Describe program", type: "admin", timing: [2] },
+    { time: "", role: "Timekeeper", name: "Aaron Peake", event: "Explain role", type: "admin", timing: [1] },
+    { time: "", role: "Grammarian & ah counter", name: "Jerry Jose", event: "Explain role", type: "admin", timing: [1] },
+    { time: "", role: "Warm up", name: "Piotr Wikarski", event: "Warm up", type: "admin" },
+
+    // SPEECHES
+    { section: "Speeches" },
+    { time: "19:43", role: "1st speaker", name: "Lucinda Telfer", event: "Ice breaker", type: "speech", timing: [5, 6, 7] },
+    { time: "19:54", role: "2nd speaker", name: "Annarita Levanti", event: "Watch your TV", type: "speech", timing: [5, 6, 7],
+      detail: "Motivational strategies #3\u20111 \u2014 Understanding emotional intelligence" },
+    { time: "", role: "Timekeeper", name: "Aaron Peake", event: "Give speech times", type: "admin", timing: [1] },
+
+    // BREAK
+    { time: "20:03", type: "break", duration: 10 },
+
+    // EVALUATIONS & TABLE TOPICS
+    { section: "Evaluations & table topics" },
+    { time: "20:13", role: "Sergeant at arms", name: "", event: "Reconvene meeting", type: "admin" },
+    { time: "", role: "1st evaluator", name: "Emmanuel Kwarteng", event: "Evaluate speech 1", type: "eval", timing: [2, 2.5, 3] },
+    { time: "", role: "2nd evaluator", name: "David Stead", event: "Evaluate speech 2", type: "eval", timing: [2, 2.5, 3] },
+    { time: "20:21", role: "Table topic master", name: "Tracey Turner", event: "Table topics", type: "topics", timing: [1, 1.5, 2] },
+    { time: "20:37", role: "Toastmaster", name: "Sushant Sharma", event: "Call for topics voting", type: "admin", timing: [1] },
+    { time: "20:38", role: "Topic evaluator", name: "Emma Hardy", event: "Topics evaluation", type: "eval", timing: [4, 5, 6] },
+    { time: "", role: "Grammarian & ah counter", name: "Jerry Jose", event: "Report", type: "admin", timing: [1, 1.5, 2] },
+
+    // REPORTS & CLOSE
+    { section: "Reports & close" },
+    { time: "20:48", role: "General evaluator", name: "Linda Williams", event: "Report", type: "eval", timing: [4, 5, 6] },
+    { time: "", role: "Club business & awards", name: "Sushant Sharma", event: "Club business & notices", type: "admin", timing: [3, 3.5, 4] },
+    { time: "20:59", role: "End of meeting", name: "", event: "", type: "admin" }
+  ]
+};
+
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║  RENDERING — you shouldn't need to touch anything below here   ║
+// ╚══════════════════════════════════════════════════════════════════╝
+
+function init() {
+  document.getElementById("meetingDate").textContent = MEETING.date + " \u00B7 " + formatTime(MEETING.time);
+  document.getElementById("themePill").innerHTML = MEETING.themeEmoji + " Theme: " + MEETING.theme;
+  document.getElementById("venue").textContent = "\uD83D\uDCCD " + MEETING.venue;
+
+  var nm = MEETING.nextMeeting;
+  document.getElementById("nextMeeting").innerHTML =
+    "<strong>Next meeting</strong><br>" +
+    nm.date + " \u00B7 " + formatTime(nm.time) + "<br>" +
+    "Meeting manager: " + nm.manager;
+
+  renderTimeline();
+  highlightNow();
+  setInterval(highlightNow, 30000);
+  renderQR();
+}
+
+function formatTime(t) {
+  var parts = t.split(":");
+  var h = parseInt(parts[0], 10);
+  var m = parts[1];
+  var suffix = h >= 12 ? "PM" : "AM";
+  var h12 = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+  return h12 + ":" + m + " " + suffix;
+}
+
+function formatTiming(t) {
+  if (!t || t.length === 0) return "";
+  function fmt(v) {
+    var mins = Math.floor(v);
+    var secs = Math.round((v - mins) * 60);
+    return mins + ":" + (secs < 10 ? "0" : "") + secs;
+  }
+  if (t.length === 1) return '<span class="badge b-amber">' + fmt(t[0]) + '</span>';
+  return '<span class="badge b-green">' + fmt(t[0]) + '</span>' +
+         '<span class="badge b-amber">' + fmt(t[1]) + '</span>' +
+         '<span class="badge b-red">' + fmt(t[2]) + '</span>';
+}
+
+function renderTimeline() {
+  var container = document.getElementById("timeline");
+  var html = "";
+
+  MEETING.agenda.forEach(function(item, i) {
+    if (item.section) {
+      html += '<div class="section-label">' + item.section + '</div>';
+      return;
+    }
+
+    if (item.type === "break") {
+      html += '<div class="item">' +
+        '<div class="item-time">' + (item.time || "") + '</div>' +
+        '<div class="item-dot-col"><div class="item-dot dot-break"></div></div>' +
+        '<div class="item-card break-card">\u2615 Break \u2014 ' + (item.duration || 10) + ' minutes</div>' +
+        '</div>';
+      return;
+    }
+
+    var dotClass = item.type === "speech" ? "dot-speech" :
+                   item.type === "eval" ? "dot-eval" :
+                   item.type === "topics" ? "dot-topics" : "dot-admin";
+
+    html += '<div class="item" data-idx="' + i + '">';
+    html += '<div class="item-time">' + (item.time || "") + '</div>';
+    html += '<div class="item-dot-col"><div class="item-dot ' + dotClass + '"></div></div>';
+    html += '<div class="item-card">';
+    html += '<div class="item-role">' + item.role + '</div>';
+    if (item.name) html += '<div class="item-name">' + item.name + '</div>';
+    if (item.event) html += '<div class="item-event">' + item.event + '</div>';
+    if (item.timing) html += '<div class="item-timing">' + formatTiming(item.timing) + '</div>';
+    if (item.detail) html += '<div class="speech-detail">' + item.detail + '</div>';
+    html += '</div></div>';
+  });
+
+  container.innerHTML = html;
+}
+
+function highlightNow() {
+  var now = new Date();
+  var nowMin = now.getHours() * 60 + now.getMinutes();
+
+  document.querySelectorAll(".item").forEach(function(el) { el.classList.remove("is-now"); });
+
+  var lastMatch = null;
+  MEETING.agenda.forEach(function(item, i) {
+    if (!item.time || item.section) return;
+    var parts = item.time.split(":");
+    var itemMin = parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+    if (nowMin >= itemMin) lastMatch = i;
+  });
+
+  if (lastMatch !== null) {
+    var el = document.querySelector('[data-idx="' + lastMatch + '"]');
+    if (el) el.classList.add("is-now");
+  }
+}
+
+function renderQR() {
+  if (typeof QRious === "undefined") return;
+  var isDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  new QRious({
+    element: document.getElementById("qr"),
+    value: MEETING.qrUrl,
+    size: 140,
+    backgroundAlpha: 0,
+    foreground: isDark ? "#D3D1C7" : "#2C2C2A"
+  });
+}
+
+init();
+</script>
+</body>
+</html>
